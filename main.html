@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Any xml - auto report</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+		<style type="text/css">
+		* {font-family:Poppins;font-size:11px}
+		td {text-align:left;padding-left:5px}
+		h2 {font-size:17px;border: 1px solid #000099;color: #cdffff;background-color:#4C8BF5; box-shadow: 5px 5px 5px #989897;width:40%;text-align:center;position:relative;left:25%}
+		h1, h2, h3 {text-align:center}
+		
+		#cboOrder {border-radius:6px; -moz-border-radius:6px;}
+		input[type="text"] {border-radius:6px; -moz-border-radius:6px;}
+		input[type="button"] {border-radius:7px; -moz-border-radius:7px;border-color:#cc99cc}		
+		
+		#tblViewParams td {border: 1px solid #cccccc;padding:2px}
+		
+		/*#divGrp1Out table {border-collapse: separate;}*/		
+		
+		#tblGrpSummary1 tr:nth-child(odd){background-color: #ccffcc; color: #00339f;}
+		#tblGrpSummary1 td {border:1px solid #009900;}
+		#tblGrpSummary1 td:nth-child(even) {text-align:center}		
+		
+		#tblSorts {box-shadow: 5px 5px 5px #989897;
+		 border-spacing: 0;
+		 border-collapse: separate;
+		 border-radius: 10px;
+		 border: 1px solid #4749d9; background-color: #4C8BF5;
+		}
+		
+		.code {font-family:Courier New;color:#000099;background-color:#eeeeef;border:1px solid #660000;width:600px}
+		/* font-family:Courier New; Hellobonsai Consolas */
+		#taHistory {font-size:11px;background-color:#393939;color:#ffee99;border-radius:16px; -moz-border-radius:16px;width:660px}
+
+		#divMain {border: 1px dashed #bfbfbf;border-radius:16px; -moz-border-radius:16px; margin-left:3%;margin-right:3%;padding-top:9px;padding-bottom:9px}
+		#divRem  {border: 0px dashed #bfbfbf;border-radius:16px; -moz-border-radius:16px; margin-left:3%;margin-right:3%;padding-top:9px;padding-bottom:9px}
+		
+		textarea {font-size:10px}
+		#topTbl td {background-color:#ffffff;}
+		.sm {font-size:9px;width:35px}		
+
+		.bth {background-image:url('sort_both.svg'); background-repeat:no-repeat;background-position: center right;padding-right:21px}
+		.sortAsc{background-image:url('sort_down.svg'); background-repeat:no-repeat;background-position: center right;padding-right:21px}
+		.sortDesc {background-image:url('sort_up.svg'); background-repeat:no-repeat;background-position: center right;padding-right:21px}
+		.close {background-image:url('close.svg'); background-repeat:no-repeat;background-position: center right;padding-right:14px;height:16px}
+		.pipe{font-size:20px;background-image:url('sort_down.svg'); background-repeat:no-repeat;background-position: top}
+		
+		.btnUD {width:110px;background-color:#b9efa0;color:#009900;margin-top:12px}		
+		/* */
+		ul.vm-pagination li {float: left; display:block;width:18px;background-color:#ccef8d;color:#008633; height:16px;border: 1px solid #008633;margin:4px;text-align:center}		
+		ul.vm-pagination li.currentPage {color:#ffffff;background-color:#008633;margin:4px;font-weight:bolder;text-align:center;border: 1px solid #006900;}		
+
+		.dvHdr {
+			max-width: 150px;margin-left:3px;
+			display:inline-table;border: 1px solid #aaaaaa;padding-left:2px;padding-right:2px;border-radius:4px; -moz-border-radius:4px;
+		}
+		.dvHdrX {
+			width: 115px; border: 1px solid #9999a9; text-align:center;margin-left:2px;;margin-right:2px;
+			display:inline-table;background-color:#ccef8d;color:#880000;font-weight:bolder;margin-top:8px;border-radius:6px; -moz-border-radius:6px;			
+		}	
+		.clsGrp{
+			width: 20px;background-image:url('close.svg'); background-repeat:no-repeat;background-position: center; background-size: 16px 16px
+		}
+		.warning {color:#ac0000;font-weight:bolder}
+		#target {width:60%;min-width:500px;background-color:#dfdfef;border:1px dashed #696969;margin-left:25px;margin-right:25px;height:45px;border-radius:6px; -moz-border-radius:6px;}
+		
+		th {background-color:#ccef8d;font-size:13px}
+		th div {
+			border: 1px solid #aaaaaa;
+		}	
+		/*	 */
+		table.std tbody tr:nth-child(odd){
+		  background-color: #ccffcc;
+		  color: #00339f;
+		}		
+		
+		/*border-collapse:collapse;border:1px solid #000099;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); } */
+		
+		#tblRows {border-spacing: 0;border:1px solid #000099;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); }
+		#tblRows th {border:1px solid #000099;color: #00339f;}
+		#tblRows td {border:1px solid #000099}		
+		/*#tblRows tr {background-color:#ffdfef}*/
+		
+		.tdOutRow1Col1 { border-top-left-radius: 8px;}
+		.tdTopLeftradius { border-top-left-radius: 8px;}
+		
+		.rowspnX {background-color:#fecccc} /* attempt to fill in the white arc above the radius */
+		.RSa0 {background-color:#ffee00;color:#990000}
+		.RSa1 {background-color:#ffee99;color:#990000}
+		.RSb0 {background-color:#66ff3f;color:#006900}
+		.RSb1 {background-color:#a9ff00;color:#006900}
+		.RSc0 {background-color:#dfdfff;color:#000089}
+		.RSc1 {background-color:#d3c6ff;color:#000089}
+		.RSd0 {background-color:#ffccd0;color:#990000}
+		.RSd1 {background-color:#ffd9e6;color:#990000}
+		.td0 {background-color:#ffffff;color:#333333}
+		.td1 {background-color: #ccffcc;color:#00339f;}
+		.noLeftBorder {border-left:0px solid }
+		.noRightBorder {border-right:0px solid }
+		.noBottomBorder {border-bottom:0px solid }
+		.noTopBorder {border-bottom:0px solid }
+		.b {font-weight:bolder;height:24px;vertical-align:middle;padding-top:3px;padding-right:9px}		
+
+		/* hide the display	of any informational items for prod */
+		.info {display:block}	
+		</style>
+		<script language="javascript" type="text/javascript">
+var isIE=("ActiveXObject" in window)	
+var y=1;	
+var msecsINIT=25;
+var msecs=100;	//overridden in onload, and by Stop/Re-set Timer
+var iDebug=0;
+var iNumPerPage=200;
+
+//for page load timings
+var tStart;
+var tEnd;
+
+var bOutputGroupCols=false; //if false not outputted apart from the grouping columns.
+var bTimerGoing=false;
+var bErr=false;
+var objX;
+
+var objM; //json column mappings (created in render xsl) Not outputted - not used.
+
+var a = [];	//column name object array. Populated from the cboOrder select in attachDivHdrs
+var g = []; //group box array (holds dim.s for drag/drop)
+
+//required to highlight the columns cbo without re-triggering the swap
+var bSwapStarted=false;
+var bIgnoreSwap=false;
+var cboIdx=-1;
+
+//grouping drag/drop variables 
+var dv;
+var target;
+var gLastLenG=0; //track the number of groups - only recalc if a change in the number.
+var gLastOneOver=-1; 
+var gB4After=0; //so we know to insert b4 or after int above.
+var gsLastDragOverMsg='';
+var gsLastDragOverMsg2='';
+var gsShowPipeMsg='';
+
+//the only place where this is set
+var xmlFileToUse='wipReport_vws.xml';	
+	//xmlFileToUse='SongListGrouped_StDesc.xml'
+	xmlFileToUse='custList.xml';
+	xmlFileToUse='CustOrderSummary.xml';
+	//xmlFileToUse='songList.xml';
+
+/*if the search param = below it is cleared for the first (sort) Xsl which normally 
+  does the search as this value is only created by the final xsl	*/
+const missingAttValue='{missing}'; 
+	
+function postInitJS(){
+	// this is where we set any changes to the transformations to be done.
+	// eg if the xml file is not 'custList.xml' we clear the group1 transform (both fetch and transform steps) to Z (skip)
+	var xmlFName=getValue('xmlOrig','Url');
+	if (xmlFName!='custList.xml'){		
+		setStatus('xslGroup1','Z');
+		setStatus('divGrp1Out','Z');
+	}	
+	
+	if (xmlFileToUse=='songList.xml'){
+		_('mainCaption').innerHTML='Jump the Shark - songlist mid 2022.';
+	}
+	if (xmlFileToUse=='CustOrderSummary.xml'){
+		_('mainCaption').innerHTML='Northwind Sql Server - Customer Order Summary';
+	}	
+	if (xmlFileToUse=='custList.xml'){
+		_('mainCaption').innerHTML='Northwind Sql Server - Customer List';
+	}		
+	if (xmlFileToUse=='wipReport_vws.xml'){
+		_('mainCaption').innerHTML='AGRF Sales Data 2024';
+	}	
+	
+	//and set the values of the informational page links
+	_('hrefXmlOrig').innerHTML=xmlFName
+	_('hrefXmlOrig').setAttribute('href',xmlFName);		
+	
+	var href=getValue('xslFinal','Url');
+	_('hrefXslFinal').innerHTML=href
+	_('hrefXslFinal').setAttribute('href',href);
+}
+function stopPropogation(e){
+	e.cancelBubble = true;
+	if(e.stopPropagation) { e.stopPropagation(); }
+}
+function setGrpDragDiv(dv,k){
+	/*cout ('dv.addEventListener(2): k:'+k+' dv.id:'+dv.id);
+	if (dv.id!='grp_p'+k){
+		sh ('## setGrpDragDiv ##  k: '+k+' id: '+dv.id);
+	}*/
+	dv.addEventListener("dragstart", (ev) => {
+	  // Change the source element's background color to show that drag has started
+	  ev.currentTarget.classList.add("dragging");
+	  // Clear the drag data cache (for all formats/types)
+	  ev.dataTransfer.clearData();
+	  // Set the drag's format and data.
+	  // Use the event target's id for the data
+	  ev.dataTransfer.setData("text/plain", ev.target.id);
+	});
+	dv.addEventListener("dragend", (ev) =>
+		ev.target.classList.remove("dragging"),
+	);
+}
+function attachDivHdrs(){
+	//elUserName.addEventListener("mouseover", function(event){
+	var divs = document.getElementsByTagName('div');
+	for(var i=0; i<divs.length; i++) {
+		if (divs[i].classList.contains('dvHdr')){  //.classList.contains('dvHdr') does not pick up dvHdrX
+			if (divs[i].getAttribute('draggable') == 'true'){ 
+				cout ('Draggable added to (1): '+divs[i].id,1);
+				divs[i].onmouseover = function(e){ return eventBoxOpenerCloser(e, this, 1); }//Call opener/closer, passing the event (e), itself, and the "close" action
+			}			
+		}else{
+			if (divs[i].classList.contains('dvHdrX')){  //.classList.contains('dvHdr') does not pick up dvHdrX
+				if (divs[i].getAttribute('draggable') == 'true'){ 
+					cout ('Draggable added to (2): '+divs[i].id);
+					divs[i].onmouseover = function(e){ return eventBoxOpenerCloser(e, this, 1); }
+				}			
+			}
+		}
+	}
+	//populateA();
+	attachTgt();
+	cout ('attachDivHdrs called');
+}
+function populateA(cbo){
+	if (!cbo){
+		cbo=_('cboOrder');
+	}
+	refreshA(cbo);
+}
+function refreshA(cbo){
+	a.length=0;
+	for (var i = 0; i < cbo.length; i++) {
+		a[a.length] = { name: cbo.options[i].text, value: cbo.options[i].value };
+	}	
+}
+function numGrps(){
+	for (var i = 1; i < 5; i++) {
+		pX=_('pipe'+i);
+		if (!pX){
+			return i-1;
+		}
+	}	
+	return i;
+}
+function findLeft(el) {
+  var rec = el.getBoundingClientRect();
+  return rec.left + window.scrollX;
+} 
+function findTop(el) {
+  var rec = el.getBoundingClientRect();
+  return rec.top + window.scrollY;
+} 
+function misc(){
+	var x=numGrps();
+	if (x!=0){
+		populateG();
+	}
+}
+function populateG(){
+	g.length=0;
+	refreshG();
+}
+function refreshG(){
+	var pX;
+	var t,l,h,w;
+	g.length=0;
+	//pipes are 0-4 max. We look for 0-3/ie 1-4.
+	for (var i = 1; i < 5; i++) {
+		pX=_('pipe'+(i-1));
+		if (!pX){
+			return;
+		}	
+		pX=pX.nextElementSibling;
+		if (!pX){
+			/*if (i!=0){
+				sh ('NOT FOUND!?'); //will happen whilst dragging
+			}*/
+			return;
+		}
+		l=parseInt(findLeft(pX));
+		t=parseInt(findTop(pX));		
+		w=parseInt(l+pX.offsetWidth);	
+		h=parseInt(t+pX.offsetHeight);		
+		g[g.length] = { X: l, Y: t, X2: w, Y2: h, ID: pX.id };
+		sh ('populateG i: '+i+' X: '+l+' Y: '+t+' X2: '+w+' Y2: '+h+' ID: '+pX.id);
+	}
+}
+function drag_over(ev){	
+	var x=numGrps();	
+	if (g.length==0){		
+		if (x!=0){
+			if (gLastLenG!=x){
+				gLastLenG=x;
+				refreshG();
+				sh ('Len G now (1) '+g.length);
+			}
+		}
+	}else{		
+		sh ('numGrps '+x,1);
+		if (x!=g.length){
+			if (gLastLenG!=x){
+				gLastLenG=x;
+				refreshG();
+				sh ('Len G now (3) '+g.length);
+			}
+		}		
+	}
+
+	var lenG=g.length;
+	var x=parseInt(ev.clientX+window.scrollX);	
+	var y=parseInt(ev.clientY+window.scrollY);	
+	var w;
+	var curK=0;
+	var notSetB4After=0;
+	for (var i = 0; i < lenG; i++) {
+		//sh ('dragOver... X: '+g[i].X+' x: '+x+' X2: '+g[i].X2+'  Y: '+g[i].Y+' y: '+y+' Y2: '+g[i].Y2);
+		if ((g[i].X<x && g[i].X2>x) && (g[i].Y<y && g[i].Y2>y)){			
+			w=g[i].X2 - g[i].X; //width
+			if ((x-g[i].X) < w/2){	//current pos - left, so how far across. Less than width/2?
+				_('pipe'+i).nextElementSibling.style.backgroundColor='#ffdead';
+				notSetB4After=1;
+			}else{
+				_('pipe'+i).nextElementSibling.style.backgroundColor='#deadff';
+				notSetB4After=2;
+				var nES1=_('pipe'+i).nextElementSibling.nextElementSibling;
+				if (nES1){
+					var nES2=nES1.nextElementSibling;
+					if (nES2){
+						nES2.style.backgroundColor='#ccef8d';		
+					}
+				}				
+			}
+			curK=i+1;
+			gLastOneOver=curK;
+			gB4After=notSetB4After;
+			var sMsg2='drag_over - gLastOneOver (curK) set to '+gLastOneOver;
+			if (gsLastDragOverMsg2!=sMsg2){
+				sh (sMsg2);
+				gsLastDragOverMsg2=sMsg2;
+			}
+			break;
+		}else{
+			if (_('pipe'+i)){
+				if (_('pipe'+i).nextElementSibling){
+					_('pipe'+i).nextElementSibling.style.backgroundColor='#ccef8d';			
+				}
+			}
+		}
+	}
+	//if 4 groups then pipe0-pipe4. g.length==4.
+	if (curK==0){
+		if (_('pipe'+lenG)){
+			setVis(_('pipe'+lenG),'visible',1); //right-most one
+		}else{
+			if (lenG!=0){
+				if (_('pipe'+(lenG-1))){
+					setVis(_('pipe'+(lenG-1)),'visible',1);
+				}
+			}
+		}
+	}else{
+		if (notSetB4After==1){
+			curK=curK-1;
+		}
+		for (var i = 0; i < lenG+1; i++) {
+			if (i!=curK){
+				if (_('pipe'+i)){
+					setVis(_('pipe'+i),'hidden',1);
+				}
+			}
+		}
+		setVis(_('pipe'+curK),'visible',1);
+	}
+	var sMsg='End drag_over; gLastOneOver: '+gLastOneOver + ' gB4After: ' +gB4After;
+	if (gsLastDragOverMsg!=sMsg){
+		sh (sMsg);
+		gsLastDragOverMsg=sMsg;
+	}	
+	ev.preventDefault();
+}
+function setVis(o,val,x){
+	if (x==1){
+		o.style.visibility=val;
+	}else{
+		if (val=='hidden'){
+			o.style.color='#000099';
+		}else{
+			o.style.color='#990000';
+		}
+	}
+}
+function attachTgt(){
+	target = document.querySelector("#target");
+	target.addEventListener('dragover',drag_over,false); 
+	target.addEventListener("drop", (ev) => {
+		ev.preventDefault();
+		// Get the data, which is the id of the source element
+		const data = ev.dataTransfer.getData("text");		
+		var pX=data.substring(4);	//grp_pX so pX only
+
+		const source = document.getElementById(data);
+		//gLastOneOver=0; gB4After (0,1,2)
+		var bAddLast=true;
+		var iNumChild=target.childElementCount;
+		var info='';
+		//sh('iNumChild: '+iNumChild+' gB4After: '+gB4After+' Len G:' + g.length);
+		if (iNumChild!=0){		
+			//we have id - is it already in the grp obj? If so is a simple swap.			
+			var k=isInGrpObj(data);
+			sh('isInGrpObj. data: '+data+' k: '+k+' gLastOneOver: '+gLastOneOver,1);
+			if (k!=-1){
+				if (gLastOneOver>0){
+					//k may be incorrect so refresh (occurs if swapped multiple times as g[] is global)
+					refreshG();
+					k=isInGrpObj(data);
+					sh ('Calling swapGrp.. (if diff.) gLastOneOver: '+gLastOneOver+' k: '+k);
+					if (gLastOneOver!=k){
+						swapGrp(gLastOneOver,k);
+						sh ('Calling swapGrp.. (END)');
+					}					
+					return false;
+				}			
+			}	
+			if (gB4After==1){
+				info=' before group #'+ gLastOneOver;
+				bAddLast=false;
+				//we only modify the parameters and reload. Nope, we need to actually add for it to look ok.			
+			} else{
+				//gLastOneOver=gLastOneOver+1;
+				sh ('gB4After: '+gB4After+' gLastOneOver: '+gLastOneOver+' g.length: '+g.length+' id: '+data);				
+				if (gLastOneOver!=g.length){
+					bAddLast=false;
+				}
+			}	            
+		}
+		sh ('##DROP## Pre addGrp bAddLast: '+bAddLast);
+		//So if: drag_over; curK: 0 notSetB4After:1
+		addGrp(pX);	
+		if (bAddLast){     
+			ev.target.appendChild(source); 
+		}else{			
+			//Order: caption, pipe1, group1, pipe2 etc
+			var iChildElemNo;
+			if (gLastOneOver<1){
+				iChildElemNo=1;				
+			}else{
+				iChildElemNo = gLastOneOver * 2;
+			}
+			var refChild=ev.target.children[iChildElemNo];
+			sh ('Inserting before child elem #: '+iChildElemNo);
+			ev.target.insertBefore(source,refChild);
+			
+			if (gB4After==2){
+				gLastOneOver=gLastOneOver+1;
+			}		
+			if (gLastOneOver!=-1){			
+				//and swap the params			
+				info=info+' Swapping grps #'+gLastOneOver+' with '+(g.length+1);
+				sh (info);
+				if (g.length!=0){
+					if (gLastOneOver!=g.length+1){
+						if (gLastOneOver!=0){
+							swapGrp(gLastOneOver,g.length+1);
+						}else{
+							sh ('## Counts wrong?! ## gLastOneOver: '+gLastOneOver);
+						}
+					}
+				}
+			}
+		}		
+		if (gB4After==1){
+			refreshG();
+		}
+		//clear globals.
+		gLastOneOver=-1;
+		gB4After=0;
+		sh ('Group '+pX+' added.');		
+	});
+}
+function isInGrpObj(id){
+	var iRet=-1;
+	for (var i = 0; i < g.length; i++) {
+		if (g[i].ID==id){
+			iRet=i+1;
+			break;
+		}
+	}
+	return iRet;
+}
+function eventBoxOpenerCloser(e,dv,k) {
+	e = e || event;//Shorthand cross-browser way to refer to the (click) event.	
+	stopPropogation(e);//Prevent events firing higher up in the DOM.
+	//console.log ('post stopPropogation.');
+	setGrpDragDiv(dv,k);
+	return false;
+};
+function applyFilter(){	
+	if (_('txtSearchBox').value==''){
+		if (_('txtSearch').value==''){		
+			return false;
+		}
+	}
+	//so just clicking in and out with no change does not redo.
+	if (_('txtSearch').value!=_('txtSearchBox').value){
+		_('txtSearch').value=_('txtSearchBox').value;
+		initTimer(1);
+	}
+}
+function selectInCbo(s){
+	var cbo=_('cboOrder');
+	var len=cbo.options.length;
+	for (var i = 0; i < len; i++) {
+		if (cbo.options[i].text==s){
+			cbo.selectedIndex=i;
+			break;
+		}
+	}	
+	return cbo.selectedIndex;
+}
+function findInCboUsingValue(cbo,p){
+	p=p.substring(1);
+	var len=cbo.options.length;
+	var k=-1;
+	for (var i = 0; i < len; i++) {
+		if (cbo.options[i].value==p){
+			k=i;
+			break;
+		}
+	}	
+	return k;
+}
+function findInCboUsingText(cbo,t){
+	var len=cbo.options.length;
+	var k=-1;
+	for (var i = 0; i < len; i++) {
+		if (cbo.options[i].text==t){
+			k=i;
+			break;
+		}
+	}	
+	return k;
+}
+function changePage(k){
+	_('currentPageNo').value=k;
+	refreshA(_('cboOrder'));
+	initTimer(1);
+}
+function resetPage(t){
+	if (t.value!=iNumPerPage){	
+		refreshA(_('cboOrder'));
+		sh ('resetPage: '+t.value+' id: '+t.id)
+		initTimer(1);
+		iNumPerPage=t.value;
+	}
+}
+function toggleGroupDisplay(chk){
+	_('chkOutputGroupCols').checked=chk.checked;
+	initTimer(2);
+}
+function toggleRowNumbers(chk){
+	initTimer(2);
+}
+function thClick(me,p){
+	if (!p){
+		alert ('No "p" param!');
+		return;
+	}	
+	_('lastClicked').value=p;
+	var s='';
+	var ds=me.getElementsByTagName('DIV');
+	if (ds.length!=0){
+		s=ds[0].innerHTML;
+	}else{
+		s=me.innerHTML;
+	}
+	cout('thClick p: '+p+' s:'+s);
+	//s is the actual column name (not p1, etc)
+	var dir='';
+	if (me.className=='bth'){
+		dir='asc';
+	}
+	if (me.className=='sortAsc'){
+		dir='desc';
+	}
+	if (me.className=='sortDesc'){
+		dir='asc';
+	}	
+	thClickCore(p,s,dir);
+}
+function addGrpCore(cbo,p,idx,z){	
+	_('group'+z).value=p;
+	// if it is the same as an existing sort clear the sort
+	var y=z-1;
+	var k=getMatchingSort(p,y);
+	sh ('addGrpCore matching sort? k:'+k);
+	var dir='asc';
+	if (k>y){
+		sh ('addGrpCore matching sort? here-1',1);
+		if (k!=z){
+			sh ('addGrpCore matching sort? here-2',1);
+			dir=clearSortCore(k);	
+		}else{
+			sh ('addGrpCore matching sort? same');
+			return;
+		}
+	}
+	if (_('sort'+z).value!=''){
+		bumpSort(z);
+	}		
+	_('sort'+z).value=p;
+	_('sortDir'+z).value=dir;
+}
+function swapGrp(j,k,skipReload){
+	var gJ=_('group'+j).value;
+	var gJdir=_('sortDir'+j).value;
+	_('group'+j).value = _('group'+k).value;
+	_('sort'+j).value = _('group'+k).value;
+	_('sortDir'+j).value = _('sortDir'+k).value
+	_('group'+k).value = gJ;
+	_('sort'+k).value = gJ;
+	_('sortDir'+k).value = gJdir;	
+	if (!skipReload){
+		initTimer(1);
+	}
+}
+function checkPipes(){
+	for (var i = 1; i < 5; i++) {
+		if (!_('pipe'+i)){
+			return;
+		}
+	}
+}
+function addGrp(p){
+	console.log('addGrp p:'+p);
+	//we only need to make sure any sorts with no group are bumped up and the group added to the first available Group textbox
+	var g1=_('group1').value;
+	var g2=_('group2').value;
+	var g3=_('group3').value;
+	var g4=_('group4').value;
+	cout('addGrp p:'+p+' g1:'+g1+' g2:'+g2+' g3:'+g3+' g4:'+g4);
+	var cbo=_('cboOrder');
+	refreshA(cbo);
+	var idx=findInCboUsingValue (cbo,p);	
+	console.log('idx:'+idx);
+	var k=0;
+	if (g1==''){
+		addGrpCore(cbo,p,idx,1);
+	}else{
+		if (g2==''){
+			addGrpCore(cbo,p,idx,2);	
+		}else{
+			if (g3==''){
+				addGrpCore(cbo,p,idx,3);
+			}else{
+				if (g4==''){
+					addGrpCore(cbo,p,idx,4);		
+				}
+			}
+		}
+	}
+	if (!_('chkAutoOff').checked){
+		initTimer(1);
+	}
+}
+function removeGroup(me,k){
+	var iNumFollowingGrps=0;
+	//swap with any subsequent groups.
+	for (var i = k + 1; i < 5; i++) {
+		if ( _('group'+i).value!=''){
+			iNumFollowingGrps=iNumFollowingGrps+1;
+		}
+	}
+	var sort=_('sort'+k).value;
+	var sortDir=_('sortDir'+k).value;
+	sh ('RemoveGroup k: '+k +' iNumFollowingGrps: '+iNumFollowingGrps);
+	if (iNumFollowingGrps!=0){	
+		bumpGroupDown(k);
+	}else{
+		_('group'+k).value="";
+	}		
+	//me.parentNode.removeChild (me); No point - just refresh table. What if not auto-refreshing?
+	if (!_('chkAutoOff').checked){
+		initTimer(1);
+	}
+}
+//so if 2 then 2 is made 3, 3 made 4.
+function bumpGroupDown(k){
+	for (var i = k; i < 4; i++) {
+		var j=i+1;
+		if (_('group'+ j).value!=''){
+			sh('bumpGroupDown '+ j +' to '+i);
+			_('sort'+i).value=_('sort'+ j).value;
+			_('sortDir'+i).value=_('sortDir'+ j).value;
+			_('group'+i).value=_('group'+ j).value;
+		}else{			
+			_('group'+ i).value='';
+			_('sort'+i).value=_('sort'+ j).value;
+			_('sortDir'+i).value=_('sortDir'+ j).value;			
+		}
+	}
+	_('group4').value='';
+	_('sort4').value='';
+	_('sortDir4').value='';
+}
+function clearWarning(){
+	tStart=Date.now();
+	_('spnWarning').innerHTML='';
+}
+function setWarning(s){
+	_('spnWarning').innerHTML=s;
+}
+function setMessage(s){
+	_('spnInfo').innerHTML=s;
+}
+function cout(s,x){
+	if (!x){
+		console.log (s);
+	}
+}
+function getMatchingSort(p,iMoreThan){
+	console.log('getMatchingSort p: '+p+' iMoreThan: '+iMoreThan);
+	var k=0;
+	if (iMoreThan<1 && _('sort1').value==p){
+		k=1;
+	}
+	if (iMoreThan<2 && _('sort2').value==p){
+		k=2;
+	}
+	if (iMoreThan<3 && _('sort3').value==p){
+		k=3;
+	}
+	if (iMoreThan<4 && _('sort4').value==p){
+		k=4;
+	}	
+	cout ('getMatchingSort k: '+k);
+	return k;
+}
+function thClickCore(p,s,dir){	
+	sh('thClickCore p: '+p+' s: '+s+' dir: '+dir);
+	_('xmlXslAuto').value='';
+	_('xmlSorted').value='';	
+	var idx=selectInCbo (s);	
+	var lastSort1=_('sort1').value;
+	var lastSort2=_('sort2').value;
+	var lastSort3=_('sort3').value;
+	var lastSort4=_('sort4').value;
+	var lastSortDir1=_('sortDir1').value;
+	var lastSortDir2=_('sortDir2').value;		
+	var lastSortDir3=_('sortDir3').value;			
+	var lastSortDir4=_('sortDir4').value;
+	// No sort yet	
+	// This could be far better - just flip dir. first. Then add if new. Or use a JSON object instead?
+	cout ('s1: '+lastSort1+lastSortDir1+' s2: '+lastSort2+lastSortDir2+' s3: '+lastSort3+lastSortDir3);
+	if (lastSort1==''){
+		_('sort1').value=p;
+		_('sortDir1').value=dir;	
+	}else{
+		if ((lastSort1==p) && (lastSortDir1!=dir)){
+			_('sortDir1').value=dir;	
+		}else{
+			if (p==lastSort1){
+				return;
+			}
+			if (lastSort2==''){
+				_('sort2').value=p;
+				_('sortDir2').value=dir;			
+			}else{	
+				if ((lastSort2==p) && (lastSortDir2!=dir)){
+					_('sortDir2').value=dir;	
+				}else{	
+					if (lastSort2==p){		
+						return;
+					}else{	
+						if (lastSort3==''){
+							_('sort3').value=p;
+							_('sortDir3').value=dir;	
+						}else{
+							if ((lastSort3==p) && (lastSortDir3!=dir)){
+								_('sortDir3').value=dir;	
+							}else{
+								if (lastSort4==''){
+									_('sort4').value=p;
+									_('sortDir4').value=dir;	
+								}else{
+									if ((lastSort4==p) && (lastSortDir4!=dir)){
+										_('sortDir4').value=dir;	
+									}
+								}							
+							}
+						}					
+					}
+				}
+			}	
+		}
+	}
+	initTimer(1);
+}
+function clearSingleSort(k,li){	
+	var ul=_('ulSorts');
+	var listLength = ul.children.length;
+	if (ul.children[0].innerHTML=='No current sort.'){
+		return false;
+	}	
+	var s=clearSortCore(k);	
+	sh ('Sort k: '+k + ' dir: '+s+' removed.');
+	initTimer(1);
+}
+//returns the dir of the first sort being cleared 
+function clearSortCore(k){
+	var s='';
+	if (k==4){
+		s=_('sortDir4').value;
+		_('sort4').value='';
+		_('sortDir4').value='';
+		_('group4').value='';
+	}
+	if (k==3){
+		s=_('sortDir3').value;
+		_('sort3').value=_('sort4').value;
+		_('sortDir3').value=_('sortDir4').value;
+		_('group3').value=_('group4').value;
+		clearSortCore(k+1);		
+	}
+	if (k==2){	
+		s=_('sortDir2').value;			
+		_('sort2').value=_('sort3').value;
+		_('sortDir2').value=_('sortDir3').value;
+		_('group2').value=_('group3').value;
+		clearSortCore(k+1);	
+	}	
+	if (k==1){	
+		s=_('sortDir1').value;
+		_('sort1').value=_('sort2').value;
+		_('sortDir1').value=_('sortDir2').value;
+		_('group1').value=_('group2').value;
+		clearSortCore(k+1);	
+	}		
+	return s;
+}
+function bumpSort(k){
+	//so if 1 we go down to 1->2. if 4 we just set to grp4	
+	if (k<4){
+		_('sort4').value=_('sort3').value;
+		_('sortDir4').value=_('sortDir3').value;
+	}
+	if (k<3){
+		_('sort3').value=_('sort2').value;
+		_('sortDir3').value=_('sortDir2').value;	
+	}
+	if (k<2){
+		_('sort2').value=_('sort1').value;
+		_('sortDir2').value=_('sortDir1').value;	
+	}	
+}
+function clearParams(){	
+	_('txtSearchBox').value='';
+	_('lastClicked').value='';	
+	_('currentPageNo').value='1';	//set to defaults
+	_('numPerPage').value='200';	
+	_('txtSearch').value='';
+	_('chkHideRowNumbers').checked=true;
+	for (var i = 1; i < 5; i++) {
+		_('sort'+i).value='';
+		_('sortDir'+i).value='';
+		_('group'+i).value='';	
+	}
+	var row1 =_('tblRows').rows[0];
+	var THs = row1.getElementsByTagName('TH');
+	for (var i = 0; i < THs.length; i++) {
+		THs[i].className='bth';
+	}	
+	var ul=_('ulSorts');
+	var listLength = ul.children.length;
+	ul.children[0].innerHTML='No current sort.';
+	for (var i = 1; i < listLength; i++) {
+		ul.removeChild(ul.children[1]);
+	}	
+	initTimer(0);
+}
+// Nice functionlity - but not used.
+/*
+function swapA(x){
+	//[myArray[0], myArray[1]] = [myArray[1], myArray[0]];
+	cout('swapA called: '+x);
+	[a[x],a[x+1]]=[a[x+1],a[x]];
+}
+//return new index. 
+function moveCore(cbo,idx,x){
+	swapA(idx+x*-1 );
+	if (x==1){
+		idx=idx-1;
+	}else{
+		idx=idx+1;
+	}
+	rebindCbo(cbo,idx);	
+	return idx;
+}
+function addItem(cbo,txt,value){
+	cbo.options[cbo.options.length] = new Option(txt, value);
+}
+function rebindCbo(cbo,idx){
+	clearCbo(cbo);
+	bindCbo(cbo);	
+	cbo.selectedIndex=idx;
+}
+function bindCbo(cbo){
+	if (!cbo){
+		cbo=_('cboOrder');
+	}		
+	var idx=cbo.selectedIndex;
+	var idxVal=0;
+	if (idx!=-1){
+		idxVal=cbo.options[idx].value;
+	}
+	for (var i = 0; i < a.length; i++) {
+		addItem(cbo,a[i].name,a[i].value);
+	}
+}
+function clearCbo(cbo){
+	if (!cbo){
+		cbo=_('cboOrder');
+	}	
+	cbo.options.length=0;
+}
+ end unused functions */
+function getNumGroups(){
+	var k=0;
+	if (_('group1').value!=''){
+		k=1;
+		if (_('group2').value!=''){
+			k=2;
+			if (_('group3').value!=''){
+				k=3;
+				if (_('group4').value!=''){
+					k=4;
+				}
+			}
+		}	
+	}
+	return k;
+}
+//called from the Up / Down buttons. 
+function swap(selectId,x,doNotSetTimer){
+	if (bIgnoreSwap || bSwapStarted){
+		if (bSwapStarted){
+			//setMessage ('Column change already in progress.. large dataset?'); //never displayed!! Overwritten immediately by next load
+			cout('Column change already in progress.. large dataset?');
+		}
+		return;
+	}	
+	if (_('chkAutoOff').checked){
+		doNotSetTimer=true;
+	}else{
+		bSwapStarted=true; //cleared by stopTimer
+	}
+	var cbo=_(selectId);
+	if (cbo.selectedIndex==-1){
+		if (cboIdx==-1){
+			setWarning ('Nothing selected.');
+		}
+		return false;
+	}
+	var iNumGrps=getNumGroups();
+	var idx=cbo.selectedIndex;
+	//do toggle of first and last 2 instead.
+	if (idx==0 && x==1){
+		//setWarning ('Already in first position.');
+		//return;
+		x=0;
+	}
+	if (idx==cbo.options.length-1 && x==0){
+		//setWarning ('Already in last position.');
+		//return;		
+		x=1;
+	}	
+	swapCbo(cbo,(x-1)*-1,doNotSetTimer);
+}
+function swapCbo(cbo,k,doNotSetTimer){
+	if (bIgnoreSwap){
+		return;
+	}	
+	var idx=cbo.selectedIndex;
+	var len=cbo.options.length;
+	sh('swap k: '+k+' cbo.selectedIndex: '+idx);	
+	var mult=1;
+	if (k==1){	
+		if (cbo.selectedIndex==len-1){		
+			idx=idx-1;
+			cbo.selectedIndex=idx;		
+		}
+	}else{
+		mult=-1;
+		if (cbo.selectedIndex==0){		
+			idx=idx-(1*mult);
+			cbo.selectedIndex=idx;		
+		}
+	}	
+	var v = cbo[idx].value;
+	var t = cbo[idx].text;		
+	//swap it	
+	var v2 = cbo[idx+(1*mult)].value;
+	var t2 = cbo[idx+(1*mult)].text;		
+	//sh ('v:'+v+' v2:' + v2);
+	cbo[idx].value=v2;
+	cbo[idx].text=t2;
+	cbo[idx+(1*mult)].value=v;
+	cbo[idx+(1*mult)].text=t;	
+	cboIdx=idx+(1*mult);
+	populateA();
+	if (!doNotSetTimer){	
+		initTimer(2);
+	}else{		
+		setCboIdx();		
+		//populateA(); //need?
+	}	
+}
+function setCboIdx(){
+	if (cboIdx==-1){
+		return;
+	}
+	bIgnoreSwap=true;
+	_('cboOrder').selectedIndex=cboIdx;
+	cboIdx=-1;
+	bIgnoreSwap=false;
+}
+function setSortStatusWrap(){
+	setStatus ('xmlXslAuto','A');
+	setStatus ('xmlSorted','A');
+	setStatus ('divOut','A');
+	sh ('setStatus called - xmlXslAuto, xmlSorted and divOut now all A');
+}
+function setOtherStatusWrap(){
+	setStatus ('divOut','A');
+	sh ('setStatus called - divOut now A');
+}		
+function setStatus(thisKey,newValue){
+	var sRet='';
+	for (const key in objX) {
+		objX[key].forEach(item => {
+			if (item.Key==thisKey){
+				item.Status=newValue;
+				sRet=item.Status;
+			}
+		});
+	}
+	return sRet;
+}			
+function getStatus(thisKey){
+	var sRet='';
+	for (const key in objX) {
+		objX[key].forEach(item => {
+			if (item.Key==thisKey){
+				sRet = item.Status;
+				//break; illegal!
+			}
+		});
+	}
+	return sRet;
+}
+function getValue(thisKey,strName){
+	var sRet='';
+	for (const key in objX) {
+		objX[key].forEach(item => {
+			if (item.Key==thisKey){
+				sRet = item[strName];
+				//break; illegal!
+			}
+		});
+	}
+	return sRet;
+}
+function initJS(initXml){
+	objX = { 
+		"Workflow": [ 
+			{ 
+				"Key" : "xmlOrig", 			//key is always the id of the textarea/div (aka 'target')
+				"Needs" : "", 				//the keys (ie "Key" in this) of any required pre-requisite fields
+				"Url" : initXml,			//relative url. If blank url it is assumed to be a transformation
+				"Status": "A",				//A, B, C, D for not started, in progress, successfully completed, failed, and Z not needed (skipped until cleared).				
+				"TargetIsTextArea": "Y"		//Only req. if transformation (determines append vs. value)
+			}, 
+			{ 
+				"Key" : "xslFinal", 	
+				"Needs" : "", 		
+				"Url" : "xslt_Test_Grp.xsl",		
+				"Status": "A",
+				"TargetIsTextArea": "Y"
+			}, 		
+			{ 
+				"Key" : "xslGroup1", 	
+				"Needs" : "", 		
+				"Url" : "autoSummary.xsl",			
+				"Status": "A",
+				"TargetIsTextArea": "Y"
+			},
+			{ 
+				"Key" : "divGrp1Out", 	
+				"Needs" : [ "xmlOrig", "xslGroup1" ], 		
+				"Url" : "",	
+				"Status": "A",
+				"TargetIsTextArea": "N"
+			},  
+			{ 
+				"Key" : "xslAutoInit", 	
+				"Needs" : "", 						
+				"Url" : "autoGenRev_xsl_srch.xslt",				
+				"Status": "A",
+				"TargetIsTextArea": "Y"
+			},
+			{ 
+				"Key" : "xmlXslAuto", 	
+				"Needs" : [ "xmlOrig", "xslAutoInit" ], 		
+				"Url" : "",			
+				"Status": "A",
+				"TargetIsTextArea": "Y",
+				"Control": [ "sort1", "txtSearch", "numPerPage" ],	//if all the named controls are empty perform the copy in the Fallback, else perform transform. As now also doing paging in sort xsl they never will be.
+				"Params": "getParamArray",
+				"Fallback": [ "xmlOrig", "xmlSorted" ],	
+				"PostTransformReplace": [							//This is needed due to deficiencies with the way the XslProcessor performs alias-transform. Should not be required.
+					{
+						"pre": 'Transform-alias', 
+						"post": 'Transform'
+					},
+					{
+						"pre": '__CR__', 
+						"post": ''
+					},
+					{
+						"pre": ':xyz', 
+						"post": ':xsl'
+					},
+					{
+						"pre": 'xyz:', 
+						"post": 'xsl:'
+					},					
+					{
+						"pre": 'xmlns__msxsl', 
+						"post": 'xmlns:msxsl'
+					},
+					{
+						"pre": 'xmlns__exslt', 
+						"post": 'xmlns:exslt'
+					},
+					{
+						"pre": 'msxsl__script', 
+						"post": 'msxsl:script'
+					}							
+				]
+			}, 		
+			{ 
+				"Key" : "xmlSorted", 	
+				"Needs" : [ "xmlOrig", "xmlXslAuto" ], 		
+				"Url" : "",			
+				"Status": "A",
+				"TargetIsTextArea": "Y"
+			}, 						
+			{ 
+				"Key" : "divOut", 	
+				"Needs" : [ "xmlSorted", "xslFinal" ], 		
+				"Url" : "",							
+				"Status": "A",
+				"Params": "getParamArray",
+				"TargetIsTextArea": "N"
+			}
+		] 
+	};	
+}
+function loopIt(){
+	y++;
+	var sRet='';
+	var sKey='';
+	var bOk=true;	
+	var allDone=true;
+	for (const key in objX) {
+		objX[key].forEach(item => {
+			sKey=item.Key;	
+			if (item.Status!='Z') { //so not skipping
+				if (item.Url!='') { //so is a fetch of a file
+					if (item.Status=='A'){	
+						allDone=false;
+						if (item.Needs.length!=0){
+							for (let i = 0; i < item.Needs.length; i++) {
+								sh ('\t\t\t'+item.Needs[i]);
+								if (item.Needs[i]!=''){
+									sRet=getStatus(item.Needs[i]);									
+									if (sRet!='C'){
+										bOk=false;
+										break;
+									}
+								}
+							}	
+							if (bOk){							
+								if (populateTA(item.Url,sKey)){
+									item.Status='C';
+								}else{
+									sh (sKey+' status now '+item.Status);
+								}
+							}
+						}else{										
+							if (populateTA(item.Url,sKey)){
+								item.Status='C';
+							}else{
+								sh ('\t'+sKey+' No needs - status should now be B. Actual: '+item.Status);								
+							}
+						}				
+					}else{					
+						//still working.
+						if (item.Status=='B'){
+							allDone=false;	
+						}
+					}
+				}else{
+					sh ('\t\t #### Key: '+item.Key+' Status: '+ item.Status);
+					if (item.Status=='A'){			
+						allDone=false;											
+						/*
+						//if the named control is empty perform the copy in the Fallback, else check Needs and perform transform
+						"Control": "sort1",			
+						"Fallback": [ "xmlOrig", "xmlSorted" ]							
+						*/	
+						//should throw error if Control present and blank, or no control exists with this id.												
+						//if Control present check this first. If no value found then no need to check "Needs"
+						var iNonBlankCount=0;
+						if (item.Control){
+							for (let i = 0; i < item.Control.length; i++) {
+								if (_(item.Control[i]).value!=''){
+									iNonBlankCount=1;
+									break;
+								}
+							}
+						}						
+						if (item.Control && iNonBlankCount==0){	
+							var sFrom, sTo;
+							for (let i = 0; i < item.Fallback.length; i++) {
+								if (i==0){
+									sFrom=item.Fallback[0];
+								}else{
+									sTo=item.Fallback[1];
+								}
+							}
+							if (sTo!='' && sFrom!=''){
+								if (populateTAcheck(sFrom)){
+									_(sTo).value=_(sFrom).value;
+									item.Status='Z';
+									sh ('\t'+item.Key+' status now (2) '+item.Status,1);
+									setStatus(sTo,'C');																			
+									sh ('\t'+sTo+' status now (2) C',1);		
+								}
+							}	
+						}else{
+							//there is is a non-blank value, or no Control. Same result either way.
+							if (item.Needs.length!=0){
+								for (let i = 0; i < item.Needs.length; i++) {
+									if (item.Needs[i]!=''){
+										sRet=getStatus(item.Needs[i]);								
+										if (sRet!='C'){
+											bOk=false;
+											break;
+										}
+									}
+								}	
+								if (bOk){								
+									item.Status='B';
+									sh ('\t'+item.Key+' status now (3) '+item.Status);	
+									var params=null;
+									var z=0;
+									//bespoke logic for missing att search. (ie can't search in the sort as they haven't yet been replaced in it)
+									if (item.Key=='xmlXslAuto'){
+										z=1;
+									}									
+									if 	(item.Params){					//"Params": "getParamArray"
+										params=this[item.Params](z); 	//damn I like this! https://stackoverflow.com/questions/43726544/how-to-call-a-function-using-a-dynamic-name-in-js
+									}	
+									if (item.PostTransformReplace) {
+										var a2 = [];
+										sh ('PostTransformReplace present. '+sKey);
+										/* This is any string replaces that need to be done after the transformation result is returned*/	
+										item.PostTransformReplace.forEach(itm => {
+											a2[a2.length] = { name: itm.pre, value: itm.post };
+										});
+										if (a2){
+											for (var i = 0; i < a2.length; i++) {
+												sh('Replace '+a2[i].name+' with '+ a2[i].value,1);	
+											}		
+										}						
+									}										
+									stdXmlXslOut(item.Needs[0],item.Needs[1],sKey,params,a2);			
+								}	
+							}else{										
+								item.Status='B';
+								sh ('\t'+sKey+' No needs - status now B');										
+							}							
+						}
+					}else{	
+						//still doing work.
+						if (item.Status=='B'){
+							allDone=false;	
+						}
+					}
+				}
+			}					
+		});
+		if (allDone){
+			sh (' ** FIN **');			
+			tEnd = Date.now();
+			var durationMSecs = tEnd - tStart ;	
+			setWarning ('Page loaded in '+durationMSecs+' msecs.');
+			stopTimer();
+		}		
+		if (bErr){
+			stopTimer();
+			setWarning ('Error occurred. No further details. bErr indicates non-existant control name.');
+		}
+	}		
+}
+function initTimer(x,bodyLoad){
+	if (bTimerGoing){
+		sh (' ### Timer already going ###');
+		return;
+	}
+	if (bodyLoad){
+		msecs=msecsINIT;
+		tStart=Date.now();
+		initJS(xmlFileToUse);
+		postInitJS();
+		sh (' ### timer initialised (bodyLoad) ### msecs: ' + msecs+'  xml file: '+xmlFileToUse);
+	}else{
+		clearWarning();
+		if (x==1){
+			setSortStatusWrap();			
+		}
+		if (x==2){
+			setOtherStatusWrap();
+		}
+		if (x==0){
+			setSortStatusWrap();	
+			setOtherStatusWrap();
+		}
+		sh (' ### timer initialised ### msecs: ' + msecs+' x: '+x );
+	}
+	myTimeout = setInterval(timerOut, msecs);	
+	bTimerGoing=true;
+}
+function stopTimerX(btn) {
+	if (btn.value=="Re-set"){
+		btn.value='Stop timer'
+		msecs=msecsINIT;
+		setWarning('Timer re-started using default value of '+msecsINIT+'msecs.');
+	}else{
+		bTimerGoing=false;
+		msecs=9999;
+		sh ('Stop Timer called (X).');
+		clearTimeout(myTimeout);
+		btn.value="Re-set" //no need
+		setWarning('Click Re-set and change any value, or perform an action to re-start.');
+	}
+}
+function toggleDisplay(s){
+	//divGrp1Out
+	//alert (s);
+	if (_(s).style.display=='none'){
+		_(s).style.display='';
+	}else{
+		_(s).style.display='none';
+	}
+	return false;
+}
+function checkSummaryGrpDivs(){
+	//show toggleDisplay href if data present
+	var dG1= _('divGrp1Out');
+	if (dG1){
+		if (_('divGrp1Out').innerHTML==''){
+			_('tdGrp1Out').style.display='none';
+		}else{
+			_('tdGrp1Out').style.display='';
+			_('tdGrp1Out').style.visibility='visible';
+		}
+	}
+	var dG2= _('divGrp2Out');
+	if (dG2){
+		if (_('divGrp2Out').innerHTML==''){
+			_('tdGrp2Out').style.display='none';
+		}else{
+			_('tdGrp2Out').style.display='';
+			_('tdGrp1Out').style.visibility='visible';
+		}	
+	}
+}
+function stopTimer() {	
+	sh ('Stop Timer called.');
+	clearTimeout(myTimeout);
+	//re-highlight correct cbo
+	setCboIdx();	
+	bSwapStarted=false;
+	checkSummaryGrpDivs();
+	bTimerGoing=false;
+}
+function timerOut() {
+	sh (' ### timer called ### '+y);
+	loopIt();
+}
+function sh(s,skip){
+	if (!skip){
+		const d = new Date();
+		let t = d.toISOString();//Time is GMT?
+		t=jsReplace(t,'Z','');
+		t=jsReplace(t,'T',' ');
+		var taH=_("taHistory");
+		taH.value=">> "+t+" " +s+"\n"+taH.value;
+	}
+}
+function sortsExist(){
+	var s1=_('sort1').value;
+	if (s1!=''){
+		return true;
+	}
+	return false;
+}
+function stdXmlXslOut(xmlTAid,xslTAid,tgt,params,a){
+	sh('stdXmlXslOut: '+xmlTAid+' '+xslTAid+' '+tgt);
+	var xml=_(xmlTAid).value;
+	var xsl=_(xslTAid).value;	
+	new Transformation().setXml(xml).setXslt(xsl).transform(tgt,params,a);
+}
+function forceInt(id,defNumber){
+	var x=_(id).value;
+	x=x.trim();
+	x=jsReplace(x,' ','');
+	if (x==''){
+		_(id).value=defNumber;
+	}else{
+		var y=parseInt(x);
+		if ((y+'')!='NaN'){
+			_(id).value=y;
+		}else{
+			_(id).value=defNumber;
+		}	
+	}
+}
+function getParamArray(k){
+	var sort1=_('sort1').value;
+	var sort2=_('sort2').value;
+	var sort3=_('sort3').value;
+	var sort4=_('sort4').value;
+	var sortDir1=_('sortDir1').value;
+	var sortDir2=_('sortDir2').value;
+	var sortDir3=_('sortDir3').value;
+	var sortDir4=_('sortDir4').value;
+	var search=_('txtSearch').value;	
+	var dbg=false;		
+	if (_('chkDebug').checked){
+		dbg=true;
+	}
+	var outputGroupCols=false;	
+	if (_('chkOutputGroupCols').checked){
+		outputGroupCols=true;
+	}
+	var hideRowNumbers=false;	
+	if (_('chkHideRowNumbers').checked){
+		hideRowNumbers=true;
+	}	
+	
+	var p = [];	
+	p[p.length] = { name: 'sort1', value: sort1 };
+	p[p.length] = { name: 'sortDir1', value: sortDir1 };
+	p[p.length] = { name: 'sort2', value: sort2 };
+	p[p.length] = { name: 'sortDir2', value: sortDir2 };
+	p[p.length] = { name: 'sort3', value: sort3 };
+	p[p.length] = { name: 'sortDir3', value: sortDir3 };
+	p[p.length] = { name: 'sort4', value: sort4 };
+	p[p.length] = { name: 'sortDir4', value: sortDir4 };
+	
+	var group1=_('group1').value;
+	var group2=_('group2').value;
+	var group3=_('group3').value;
+	var group4=_('group4').value;
+	//first x groups = first x sorts
+	p[p.length] = { name: 'group1', value: group1 };
+	p[p.length] = { name: 'group2', value: group2 };
+	p[p.length] = { name: 'group3', value: group3 };	
+	p[p.length] = { name: 'group4', value: group4 };						
+
+	if (k==1 && search==missingAttValue){
+		p[p.length] = { name: 'search', value: '' };
+	}else{
+		p[p.length] = { name: 'search', value: search };
+	}
+	if (dbg){
+		p[p.length] = { name: 'debug', value: 'Y' };
+	}else{
+		p[p.length] = { name: 'debug', value: 'N' };
+	}
+	if (outputGroupCols){
+		p[p.length] = { name: 'outputGroupCols', value: 'Y' }; //default ''
+	}	
+	if (hideRowNumbers){
+		p[p.length] = { name: 'hideRowNumbers', value: 'Y' };  //default ''
+	}		
+		
+	p[p.length] = { name: 'lastClicked', value: _('lastClicked').value };	
+	
+	forceInt('currentPageNo',1);
+	p[p.length] = { name: 'pageNo', value: _('currentPageNo').value };
+	
+	forceInt('numPerPage',210);
+	p[p.length] = { name: 'numPerPage', value: _('numPerPage').value };
+	
+	var s='|';
+	var cbo=_('cboOrder');
+	if (cbo){		
+		cout ('Pre columnMappings len (cbo): '+cbo.length,1)
+		if (cbo.length > 915){
+			cout (a);
+		}
+		for (var i = 0; i < cbo.length; i++) {
+			var idx=cbo[i].value;
+			if (idx!=i+1){ 
+				var j=i+1;
+				s=s+j+'^'+idx+'|';
+			}	
+		}		
+		p[p.length] = { name: 'columnMappings', value: s };
+		if (s!='|'){
+			sh ('Param: columnMappings: '+s);
+		}
+		
+	}else{
+		p[p.length] = { name: 'columnMappings', value: s };
+	}
+	return p;
+}
+function populateTAcheck(id){	
+	var test=_(id).value;
+	if (test!=''){	
+		return true;
+	}	
+	return false;
+}
+function DIVcheck(id){
+	var test=_(id).innerHTML;
+	if (test!=''){	
+		return true;
+	}	
+	if (id=='divGrp1Out'){
+		sh ('No innerHTML for '+id+'?!');
+	}
+	return false;
+}
+//	Xml: current relative filename. 
+// 	 id: id of target textarea
+function populateTA(Xml,id){
+	sh ('populateTA: '+id);
+	var test=_(id).value;
+	if (test!=''){
+		//this should not be getting called when already populated?
+		sh ('Already populated! '+id);
+		return true;
+	}	
+	setStatus(id,'B');
+	//var _xm = { readyState: 4 }; this does/did what?
+	var xm = new XMLHttpRequest();
+	sh ('fetching xml.. '+Xml);
+	xm.m = id;
+	xm.onreadystatechange = function() {
+		var x, m, xmlDoc;
+		x = this;
+		m = x.m;
+		if ((x.readyState == 4) && (x.status == 200)){
+			if (x.responseXML != null)
+				xmlDoc = x.responseXML;
+			else {
+				var parser = new DOMParser();
+				xmlDoc = parser.parseFromString(x.responseText, "application/xml");
+			}	
+			if (xmlDoc){
+				var s = new XMLSerializer();
+				var newXmlStr = s.serializeToString(xmlDoc);	
+				sh ('fetch complete  id: '+m);	
+				if (!_(m)){
+					//alert ('yo! m:'+m);
+					bErr=true;
+					return;
+				}
+				_(m).value=newXmlStr;		
+				setStatus(m,'C');	
+			}else{
+				sh ('Unable to retrieve the xml: '+m);
+			}	
+		}
+	};		
+	
+	try {
+		xm.open("GET", Xml, true);
+	}
+	catch (e) { alert(e) }
+	xm.send(null);		
+
+}
+function jsReplace(txt,t1,t2){
+	if (typeof(txt)=="undefined"){
+		return "";
+	}
+	txt=txt+'';
+	var iPos=txt.indexOf(t1);
+	if (iPos==-1){
+		return txt;
+	}
+	var iLenA=t1.length;
+	var txtA='';
+	txtA=txt;
+	var txtKeep='';
+	while(txtA.indexOf(t1)!=-1) {
+		var iNext=txtA.indexOf(t1);
+		txtKeep=txtKeep+txtA.substring(0,iNext)+t2;
+		txtA=txtA.substring(iNext+iLenA);
+	}
+	return txtKeep+txtA;
+}
+function _(x){
+	return document.getElementById(x);
+}	
+function Transformation() {
+    var xml;    
+    var xmlDoc;    
+    var xslt;    
+    var xsltDoc;
+    var transformed = false;        
+    this.getXml = function() {
+        return xml;
+    }
+    this.getXmlDocument = function() {
+        return xmlDoc
+    }
+    this.setXml = function(x) {
+        xml = x;
+        return this;
+    }
+    this.getXslt = function() {
+        return xslt;
+    }
+    this.getXsltDocument = function() {
+        return xsltDoc;
+    }
+    this.setXslt = function(x) {
+        xslt = x;
+        return this;
+    }    
+    this.getCallback = function() {
+        return callback;
+    }
+    this.setCallback = function(c) {
+        callback = c;
+        return this;
+    }
+	//was: = function(target, postTransform) 
+    this.transform = function(target, params, a2) {
+        if (!browserSupportsXSLT()) {
+            alert('This browser does not support XSLT in javascript, so we cannot continue, sorry.')
+            return;
+        }
+        var str = /^\s*</;
+        var t = this;
+        var transformed = false;
+        var xm = {
+            readyState: 4
+        };
+        var xs = {
+            readyState: 4
+        };	
+        if (isIE) {
+			alert ('IE is no longer supported. Sorry.');
+			return;
+        }       
+		var change = function() {
+			if (xm.readyState == 4 && xs.readyState == 4 && !transformed) {
+				if (xm.responseXML != null)
+					xmlDoc = xm.responseXML
+				else {
+					var parser = new DOMParser();
+					xmlDoc = parser.parseFromString(xm.responseText, "application/xml");
+				}		
+				if (xs.responseXML != null)
+					xslDoc = xs.responseXML
+				else {
+					var parser = new DOMParser();
+					xslDoc = parser.parseFromString(xs.responseText, "application/xml");
+				}	
+				var resultDoc;
+				var processor = new XSLTProcessor();
+				if (typeof processor.transformDocument != 'function') {		
+					try{
+						processor.importStylesheet(xslDoc);
+					} catch (error) {
+						console.log('err=' + error);
+						return false;
+					}					
+					if (params){
+						for (var i = 0; i < params.length; i++) {
+							if (params[i].name=='columnMappingsXX'){
+								cout(params[i].name+': '+params[i].value);
+							}						
+							processor.setParameter(null, params[i].name, params[i].value);	
+						}		
+					}		
+					if (target=="xmlSorted"){		
+						//debugger
+						resultDoc = processor.transformToDocument(xmlDoc);				
+					}else{
+						//NB all attribute names become lcase
+						resultDoc = processor.transformToFragment(xmlDoc, document);
+					}								
+					if (!resultDoc){
+						debugger
+						sh ('### CALL FAILED ###  retrying?? ' + target)
+						return;						
+					}	
+						
+					//we have the target (key)	
+					var TargetIsTextArea=getValue(target,"TargetIsTextArea");	
+					sh ('TargetIsTextArea: '+TargetIsTextArea,1);
+					if (TargetIsTextArea=="Y"){					
+						var s = new XMLSerializer();
+						var xmlStr = s.serializeToString(resultDoc);	
+						//we could have possibly left this hardcoded as it is basically a one-off 'fix'
+						/*
+						if (target=='xmlXslAuto'){
+							xmlStr=jsReplace(xmlStr,'Transform-alias','Transform');
+							xmlStr=jsReplace(xmlStr,'___','');
+							xmlStr=jsReplace(xmlStr,'xyz','xsl');	
+						}*/		
+						if (a2){
+							for (var i = 0; i < a2.length; i++) {
+								xmlStr=jsReplace(xmlStr,a2[i].name,a2[i].value);	
+							}		
+						}							
+						_(target).value=xmlStr;
+					}else{					
+						_(target).innerHTML = '';	
+						try {
+						  _(target).appendChild(resultDoc);
+						} catch (e) {
+						  console.log('err=' + e);
+						}
+					}
+					setStatus(target,'C');	
+				}
+				transformed = true;
+			}
+		};
+        		
+        if (str.test(xml)) {
+            xm.responseXML = new DOMParser().parseFromString(xml, "text/xml");			
+        }
+        else {		
+			//can get from web server?
+            xm = new XMLHttpRequest();
+            xm.onreadystatechange = change;
+            try {
+                xm.open("GET", xml, true);
+            }
+            catch (e) { alert(e) }
+            xm.send(null);			
+        }
+        if (str.test(xslt)) {
+            xs.responseXML = new DOMParser().parseFromString(xslt, "text/xml");            
+        }else{
+			//can get xslt from web server?
+            xs = new XMLHttpRequest();
+            xs.onreadystatechange = change;
+            try {
+                xs.open("GET", xslt, true);
+            }
+            catch (e) { 
+				console.log('err=' + e);
+			}
+            xs.send(null);			
+        }
+		change();
+    }
+}
+
+//https://developer.mozilla.org/en-US/docs/Web/XML/Parsing_and_serializing_XML
+/*
+fetch("example.xml")
+  .then((response) => response.text())
+  .then((text) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/xml");
+    console.log(doc.documentElement.nodeName);
+  });
+*/
+
+/**
+ * Returns whether the browser supports XSLT.
+ * @return the browser supports XSLT
+ */
+function browserSupportsXSLT() {
+    var support = false;
+    if (isIE) { // IE 5+
+        support = true;
+    }
+    else if (window.XMLHttpRequest != undefined && window.XSLTProcessor != undefined) { // Mozilla 0.9.4+, Opera 9+
+       var processor = new XSLTProcessor();
+       if (typeof processor.transformDocument == 'function') {
+           support = window.XMLSerializer != undefined;
+       }
+       else {
+           support = true;
+       }
+    }
+    return support;
+}		
+function goTo(){
+	_('numPerPage').value=iNumPerPage;
+	document.location="#topTbl";
+}
+/* grouping actions (collapse, expand etc) */
+function checkIt(tr,k,clsName,newVal){			
+	if (!tr){
+		return false;
+	}else{
+		var td=tr.getElementsByTagName('TD');
+		if (td.length!=0){
+			if (td[k]){
+				if (td[k].className.indexOf(clsName)==0){
+					tr.style.display=newVal;
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}
+	}
+}	
+function checkNS(tr){			
+	if (!tr){
+		return false;
+	}else{
+		return true;
+	}
+}			
+function toggleGrp(td){
+	var tr=td.parentNode;
+	var cname=td.className; 
+	var k = getPrevSiblingCount(td);
+	var bMore=false;
+	var z=0;
+	var trOne;
+	var newVal='';
+	trOne=tr.nextElementSibling;
+	if (trOne.style.display==''){
+		newVal='none';
+	}			
+	do {
+		tr=tr.nextElementSibling;
+		bMore=checkIt(tr,k,cname,newVal);		
+		z++;
+		if (z>299){
+			alert ('loop..');
+			return;
+		}
+	} while (bMore);
+	return;			
+}
+function getPrevSiblingCount(cnt){
+	var k=0;
+	do{		
+		cnt=cnt.previousElementSibling;
+		if (cnt){		
+			k++;
+		}				
+	}
+	while (cnt)
+	return k;
+}
+function toggleGrpAll(tdIn,x){
+	if (tdIn.tagName=='DIV'){
+		tdIn=tdIn.parentNode;
+	}
+	var k = 0; //getPrevSiblingCount(tdIn);
+	k=x-1;
+	var clsName='';
+	var newVal='';
+	var tr=tdIn.parentNode;
+	var z=0;
+	do {
+		tr=tr.nextElementSibling;
+		bMore=checkNS(tr);	
+		if (bMore){
+			if (clsName==''){
+				var td=tr.getElementsByTagName('TD');
+				if (td[k]){
+					if (td[k].innerHTML.indexOf('+')!=-1){								
+						clsName=td[k].className;
+						tr=tr.nextElementSibling;
+						if (tr.style.display==''){
+							newVal='none';
+						}	
+						tr.style.display=newVal;
+						cout(`#`+k+` td Len: `+td.length+' newVal: '+newVal);
+						bMore=false;
+					}
+				}						
+			}
+		}
+		z++;
+		if (z>299){
+			alert ('loop..');
+			return;
+		}
+	} while (bMore);
+	
+	//just cycle through
+	var cname=clsName.substring(0,3);
+	var tbl=tdIn.parentNode.parentNode;
+	var t=tbl.getElementsByTagName('TR');
+	//alert (t.length);
+	for (let i = 0; i < t.length; i++) {
+		td=t[i].getElementsByTagName('TD');
+		if (td[k]){
+			if (td[k].innerHTML.indexOf('+')==-1){
+				if (td[k].className.indexOf(cname)==0){
+					t[i].style.display=newVal;
+				}
+			}else{
+				if (newVal=='' && t[i].style.display!=newVal){
+					t[i].style.display=newVal;
+				}
+			}
+		}
+		//console.log(`#`+k+` td len:`+td.length);
+	}
+	return;				
+}
+</script>
+	</head>		
+	<body bgcolor="#fff" onload="initTimer(0,'Y');goTo()">	
+		<h2 id="mainCaption"></h2>
+		
+		<form><!-- autocomplete="off" Works well in FF, both on and off. Others; nup.  -->
+		
+		<table id="topTbl" style="width:80%" align="center">
+			<tr>
+				<td style="width:60%" rowspan="2">
+				History: <br /> <textarea id="taHistory" cols="120" rows="14"></textarea>
+				</td>
+				<td style="width:30%">
+								
+					<div style="visibility:visible;display:inline-table">		
+						<table border="1" style="border-collapse:collapse;" id="tblViewParams">
+							<tr>
+								<td>Groups:</td>
+								<td><input type="text" class="sm" id="group1" value="" /></td>
+								<td><input type="text" class="sm" id="group2" value="" /></td>
+								<td><input type="text" class="sm" id="group3" value="" /></td>
+								<td><input type="text" class="sm" id="group4" value="" /></td>
+								<td>Output: <input type="checkbox" id="chkOutputGroupCols"/></td>
+							</tr>
+							<tr>
+								<td>Sorts:</td>
+								<td><input type="text" class="sm" id="sort1" value="" /></td>
+								<td><input type="text" class="sm" id="sort2" value="" /></td>
+								<td><input type="text" class="sm" id="sort3" value="" /></td>
+								<td><input type="text" class="sm" id="sort4" value="" /></td>
+								<td></td>
+							</tr>	
+							<tr>
+								<td>Sort dir:</td>
+								<td><input type="text" class="sm" id="sortDir1" value="" /></td>
+								<td><input type="text" class="sm" id="sortDir2" value="" /></td>
+								<td><input type="text" class="sm" id="sortDir3" value="" /></td>
+								<td><input type="text" class="sm" id="sortDir4" value="" /></td>
+								<td></td>
+							</tr>			
+							<tr>
+								<td>Search:</td>
+								<td><input type="text" class="sm" id="txtSearch" value="" /></td>
+								<td>lastClicked:</td>
+								<td><input type="text" class="sm" id="lastClicked" value="" /></td>
+								<td>currentPageNo:</td>
+								<td><input type="text" class="sm" id="currentPageNo" value="" /></td>
+							</tr>
+						</table>
+					</div>	
+					<br /><br />
+					<table border="0">
+						<tr>
+							<td style="width:50%;text-align:right;padding-right:15px">Number per page:</td>
+							<td style="width:50%"><input type="text" style="width:40px;text-align:right" id="numPerPage" value="" onblur="resetPage(this);" /></td>
+						</tr>
+						<tr>
+							<td style="width:50%;text-align:right;padding-right:15px">Show debug: <input type="checkbox" id="chkDebug"/></td>
+							<td>Pause auto-refresh: <input type="checkbox" id="chkAutoOff"/>	</td>
+						</tr>
+						<tr>
+							<td style="width:50%;text-align:right;padding-right:15px">
+								<input type="button" value="Prod" onclick="location='index.html'" style="width:90px"/></td>
+							<td nowrap="nowrap"><input type="button" value="Stop timer" onclick="stopTimerX(this);" style="width:90px"/>
+								<input type="button" value="Misc" onclick="misc();" style="width:90px;margin-left:12px"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;padding-right:15px;">Hide row numbers: </td>
+							<td><input type="checkbox" id="chkHideRowNumbers" onchange="toggleRowNumbers(this);"/></td>
+						</tr>							
+					</table>
+
+				</td>
+			</tr>
+		</table>					
+
+		<table align="center">
+			<tr>
+				<td style="width:620px">
+					<div id="divGrp1Out"></div>
+				</td>
+				<td style="width:130px" valign="top" id="tdGrp1Out" style="visibility:hidden"><a href="#" onclick="return toggleDisplay('divGrp1Out');">show/hide summary 1</td>
+			<tr>
+		</table>		
+		<table align="center">
+			<tr>
+				<td style="width:620px">
+					<div id="divGrp2Out"></div><br />
+				</td style="width:130px">
+				<td valign="top" id="tdGrp2Out" style="visibility:hidden"><a href="#" onclick="return toggleDisplay('divGrp2Out');">show/hide summary 2</td>
+			<tr>
+		</table>	
+		<div id="divOut"></div>
+		
+		<br />
+		
+		<div id="divRem">
+		
+		<p style="font-size:14;color:#990000">
+		This first populates the textareas with the original xml (from the web server),<br />
+		and any xsl files that need to be applied (minimum 3 - two to perform any selected sorts, and one to perform the final render).<br />
+		All transformations are performed on the client-side. <br />
+		<br />
+		</p>
+		<br />
+		
+		
+		
+		
+		<br />	
+	
+		Original xml: (loaded from <a href="songList.xml" id="hrefXmlOrig">songList.xml</a>). <br />
+		<textarea id="xmlOrig" cols="250" rows="16"></textarea><br /><br />
+		
+		Grouping T1 xsl: (optional) <a href="autoSummary.xsl">autoSummary.xsl</a><br />		
+		<textarea id="xslGroup1" cols="250" rows="16"></textarea><br /><br />			
+		
+		The initial auto-gen T1 xsl: <a href="autoGenRev_xsl_srch.xslt">autoGenRev_xsl_srch.xslt</a><br />		
+		<textarea id="xslAutoInit" cols="250" rows="16"></textarea>
+		<br />
+		<a href="#mainCaption">Go to page top</a>
+		<br />		
+		
+		Auto-created xsl:<br />
+		<textarea id="xmlXslAuto" cols="250" rows="16"></textarea><br /><br />	
+		
+		The sorted xml:<br />
+		<textarea id="xmlSorted" cols="250" rows="16"></textarea>
+		<br />
+		<a href="#mainCaption">Go to page top</a>
+		<br />	
+		
+		xsl final: <a href="xslt_Test_Grp.xsl" id="hrefXslFinal">xslt_Test_Grp.xsl</a> <br />
+		<textarea id="xslFinal" cols="250" rows="16"></textarea><br /><br />
+		
+		</form>
+		
+		<br /><br /><br />	
+		<a href="#mainCaption">Go to page top</a>
+		<br /><br /><br />	
+		
+		Notes.
+		<br />
+		
+		Here are the salient points.
+		<ul>
+		<li>All calls are essentially asynchronous.</li>
+		<li>Some calls require that previous calls be completed before commencing but not all (eg steps #1 and #2 below; both could start at the same time and #2 could complete first)</li>
+		<li>No calls should be re-commenced if already begun. Inotherwords if a download has been started we do not want to start downloading the same file again.</li>
+		<li>All calls need to be able to be tracked; not started, in progress, successfully completed, failed. ** Easy to remember, A (activate), B (begun), C (complete), D (died), E (error)</li>
+		<li>Not every call needs to performed. If the criteria are not met then any action in the fallback should be performed instead. Currently this is only if no sort is present then copy the xmlOrig xml into the xmlSorted textarea.</li>
+		</ul> 
+		<p>
+		So in long-hand:
+		<br />Step 1. The initial xml needs to be downloaded. This is saved into the original xml textarea (id: xmlOrig).
+		<br />Step 2. The final xsl (xslt_Test_minY.xsl) needs to be downloaded. This is saved into the final xsl texarea (id: xslFinal).
+		<br />Step 3. The transformation of #1 by #2 needs to be performed when the page is first loaded. This appends the result to the result div (id: divOut)
+		<br />Step 4/5. If present in the json object, any additional transformations also need to be performed upon the pages first load.
+		<br />	  The file contents are saved into the 2 grouping textareas (id: xslGroup1 and id: xslGroup2).
+			  The results of these are appended to 2 divs, id: divGrp1Out and id: divGrp2Out respectively.
+		<br />Step 6. The alias-transform xsl file needs to be downloaded. This can be done as soon as #3 has completed. This is saved into the autosort xsl texarea (id: xslAutoInit).
+		<br />All the tasks above should be represented in the master json object so this can be used to establish status on subsequent GUI events. 
+		<br /><br />Subsequent GUI/timer events. 
+		<br />There are 2 types: Sorting and Other (add/remove filter, change page size, change page number, change column order).
+		<br />All sorting events require that 2 additional steps are performed;
+		<br />Step 7. If the file in Step 6 is not present this should be downloaded. (Note this should already be). The transformation of #1 by #6 needs to be performed.
+			  The result is saved into the auto sort xsl xml textarea (id: xmlXslAuto)
+		<br />Step 8. Using the result of above (another xsl) #1 should again be transformed, this time by the output of #7. 
+		      The result of this needs to be saved into the sorted xml textarea (id: xmlSorted).			  
+		<br />Step 9. All subsquent "final" transformations need to use the data present in the sorted xml textarea if non-blank, otherwise the data present in xmlOrig textarea.
+		<br />In practice if there is no sort then the contents of Step 1 (xmlOrig) is simply copied into the sorted xml textarea (xmlSorted)
+		<br />All "other" actions simply re-do Step 9 passing in different parameters. 
+		<br />These different parameters could be:
+		<br />
+			<ul>
+				<li>A search term</li>
+				<li>A change to the number of rows in each page</li>
+				<li>A different page number</li>
+				<li>A column move (a change to the column order) using the Move left or right buttons</li>
+				<li>Removal of the last sort</li>
+				<li>Check/unchecking the include group columns in output</li>
+				<li>Other Eg grouping using drag drop. </li>
+			</ul>
+		</p>
+		
+		<p>
+		Ideally we want to represent all the logic above in a json object.
+		<br />The "trickiest" part would appear to be the optional sort and the fallback activity. This occurs if there is a value present for the html control sort1.
+		<br />As the json object should remain in memory everything else should be able to be performed by checking the contents of this object instead of the relevant text boxes.
+		</p>
+		
+		<br />
+		<a href="#mainCaption">Go to page top</a>
+		
+		<p> The sql used to create the custList.xml file is below. This was run in SSMS and the result simply pasted into Notepadd++ and saved as.<br/>
+		<pre class="code">
+		select 
+		CustomerID, CompanyName
+		, isnull(ContactName,'') as ContactName
+		, isnull(ContactTitle,'') as ContactTitle
+		, isnull(Address,'') as Address 
+		, isnull(City,'') as City, isnull(Region,'') as Region
+		, isnull(PostalCode,'') as PostalCode
+		, isnull(Country,'') as Country
+		, isnull(Phone,'') as Phone
+		, isnull(Fax,'') as Fax
+		from 
+		[dbo].[Customers] as cust for xml auto, root ('data')
+		</pre>
+		</p>
+		<br />
+		Sql used to create the CustOrderSummary.xml file is below.<br />
+		<pre class="code" style="width:1000px">
+		SELECT DISTINCT   O.OrderID, C.CustomerID, C.CompanyName, C.ContactName, C.ContactTitle, C.Address, C.City, C.Region, C.PostalCode
+				, C.Country, O.OrderDate, O.ShippedDate, O.ShipName, E.LastName, E.FirstName, E.Title, E.TitleOfCourtesy
+				, E.City AS EmpCity, E.Region AS EmpRegion, E.Country AS EmpCountry, E.HomePhone, E.PostalCode AS EmpPostCode
+				, Sh.CompanyName AS ShipperCompanyName, Sh.Phone
+				, OrdD.UnitPrice, OrdD.Discount, OrdD.Quantity
+				, cast(OrdD.UnitPrice * OrdD.Quantity as decimal(7,2)) as MaxRevenue
+				, cast((1 - OrdD.Discount) * OrdD.UnitPrice * OrdD.Quantity as decimal(7,2)) AS OrderProdRevenue
+into #tmpX
+FROM            dbo.Orders	AS O 
+				INNER JOIN	dbo.[Order Details] AS OrdD ON O.OrderID = OrdD.OrderID 
+                INNER JOIN	dbo.Customers		AS C	ON O.CustomerID = C.CustomerID 
+                INNER JOIN	dbo.Employees		AS E	ON O.EmployeeID = E.EmployeeID
+                INNER JOIN  dbo.Shippers		AS Sh	ON O.ShipVia = Sh.ShipperID 
+order by CustomerID                         
+
+--select * from  #tmpX
+
+select OrderID, CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode
+						 , Country, OrderDate, ShippedDate, ShipName, LastName, FirstName, Title, TitleOfCourtesy
+						 , EmpCity, EmpRegion, EmpCountry, HomePhone, EmpPostCode, ShipperCompanyName
+						 , Phone, sum(OrderProdRevenue) as TotalOrderRevenue, sum(MaxRevenue) as MaxTotalOrderRevenue
+from #tmpX r
+
+group by OrderID, CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode
+						 , Country, OrderDate, ShippedDate, ShipName, LastName, FirstName, Title, TitleOfCourtesy
+						 , EmpCity, EmpRegion, EmpCountry, HomePhone, EmpPostCode
+						 , ShipperCompanyName, Phone
+order by CustomerID  
+for xml auto, root ('data')
+		</pre>
+		
+		<br />	
+		
+		</div>
+		
+		<br /><br />
+		<a href="#mainCaption">Go to page top</a>
+		<br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+		<br /><br /><br />	
+	</body>	
+</html>
