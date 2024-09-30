@@ -21,4 +21,8 @@ Strange - I even get this on machines that do not have Altova XmlSpy installed.
 It has been a while since I installed Xselerator on a fresh machine. 
 I do seem to recollect getting another message but can't for the life of me remeber what it was.
 
+Maybe to do with missing Dom element? If so try installing msxml4 (included, msxml4.msi) 
+If you don't trust this one you should be able to still obtain it from the Microsoft site.. maybe.
+
+
 If there's any interest I'll update with additional recommendations in the comments.
