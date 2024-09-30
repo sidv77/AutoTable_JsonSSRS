@@ -1,0 +1,14 @@
+{
+  "name": "first-app",
+  "version": "1.0.0",
+  "description": "example for blog",
+  "main": "index.js",
+  "scripts": {
+	"start":" start http://localhost:3000 && node server.js"
+  },
+  "author": "Kelly",
+  "license": "ISC",
+  "dependencies": {
+    "json-table-converter": "^0.3.0"
+  }
+}
