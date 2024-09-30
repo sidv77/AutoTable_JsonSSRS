@@ -1,8 +1,16 @@
+<h3>Instructions for running</h3>
+<p>
+Download all files into a single directory. Open VS Code. 
+If not already installed install the Live Server extension.
+Browse to main.html.
+</p>
+<br />
+
 
 <h3>Instructions for installing Xselerator</h3>
 <p>
 Unzip into a root dir in your C:\ drive. Yes it a windows app. You do not need to run any install, unzipping is sufficient.
-Right-click the Xselerator.exe, and click the Compatibity tab. Select Windows 7.
+Right-click the Xselerator.exe, and click the Compatibility tab. Select Windows 7.
 </p>
 
 Also select Run as Administrator.
